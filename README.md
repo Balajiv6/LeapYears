@@ -10,6 +10,10 @@ Acceptance Criteria:
 - All years divisible by 4 but not by 100 ARE leap years (e.g., 2008, 2012, 2016),
 - All years not divisible by 4 are NOT leap years (e.g. 2017, 2018, 2019).
 
+Additional Rule:
+- NOTE: Entered year have to be between 1582 to 8000.
+
+
 # Goal:
  Need to determine whether the given year is leap year or not.
 
@@ -33,6 +37,12 @@ The Jacoco reports can be found in target folder as below.
 target\site\jacoco\index.html
 ```
 
+The Mutation reports can be found in target folder as below.
+
+```bash
+target\pit-reports
+```
+
 # Maven Commands to start the SpringBoot:
 ```bash
 mvn spring-boot:run
@@ -50,6 +60,7 @@ Use the below creds to view the Swagger documentation
 UserName: user
 Password: password
 ```
+
 
 # Maven Command to run the sonar
 
@@ -69,8 +80,9 @@ https://sonarcloud.io/dashboard?id=DEV2018039_sonarTest
 http://localhost:9080/bnppfortis/leapyear
 ```
 
+
 # My solution
-- Create a Spring boot Microservice Application.
+- Create a Spring boot Microservice Application with two API one with Plain text response and other with Json Response but both performs the same operation.
 - Add the Swagger documentation for the API created.
 - Perform the Test Driven Develpoment to create a API.
 - Test the API using the Swagger docs.
