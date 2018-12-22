@@ -1,6 +1,8 @@
 package com.bnppfortis.channels.service;
 
 import com.bnppfortis.channels.constants.CommonConstants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class LeapYearService {
 
+    private static final Logger logger = LoggerFactory.getLogger(LeapYearService.class);
     /**
      * This method is used to determine whether the given year is Leap Year or Not.
      *
@@ -18,14 +21,10 @@ public class LeapYearService {
      * @return boolean - True or False
      */
     public boolean isLeapYear(int year) {
-        boolean isLeapYearValue = false;
-        if (year > CommonConstants.LEAST_VALUE && year <= CommonConstants.EIGHT_THOUSAND) {
-            if (year % CommonConstants.FOUR == CommonConstants.ZERO &&
-                    (year % CommonConstants.HUNDRED != CommonConstants.ZERO
-                            || year % CommonConstants.FOUR_HUNDRED == CommonConstants.ZERO)) {
-                isLeapYearValue = true;
-            }
-        }
-        return isLeapYearValue;
+        logger.debug("Entered isLeapYear Service Method");
+        return year > CommonConstants.ZERO && year <= CommonConstants.EIGHT_THOUSAND &&
+                year % CommonConstants.FOUR == CommonConstants.ZERO &&
+                (year % CommonConstants.HUNDRED != CommonConstants.ZERO
+                        || year % CommonConstants.FOUR_HUNDRED == CommonConstants.ZERO);
     }
 }
