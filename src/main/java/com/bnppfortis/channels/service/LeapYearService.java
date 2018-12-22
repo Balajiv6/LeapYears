@@ -1,5 +1,6 @@
 package com.bnppfortis.channels.service;
 
+import com.bnppfortis.channels.constants.CommonConstants;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,7 +11,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class LeapYearService {
 
+    /**
+     * This method is used to determine whether the given year is Leap Year or Not.
+     *
+     * @param year - Integer
+     * @return boolean - True or False
+     */
     public boolean isLeapYear(int year) {
-        return false;
+        boolean isLeapYearValue = false;
+        if (year > CommonConstants.LEAST_VALUE && year <= CommonConstants.EIGHT_THOUSAND) {
+            if (year % CommonConstants.FOUR == CommonConstants.ZERO &&
+                    (year % CommonConstants.HUNDRED != CommonConstants.ZERO
+                            || year % CommonConstants.FOUR_HUNDRED == CommonConstants.ZERO)) {
+                isLeapYearValue = true;
+            }
+        }
+        return isLeapYearValue;
     }
 }
