@@ -48,6 +48,50 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <!--jacoco plugin which helps in the coverage report during maven test phase.-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.7.9</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>generate-code-coverage-report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--pi-test plugin which helps in the coverage and mutation report during maven prepare-package phase.-->
+            <plugin>
+                <groupId>org.pitest</groupId>
+                <artifactId>pitest-maven</artifactId>
+                <version>1.1.10</version>
+                <executions>
+                    <execution>
+                        <id>mutation-report</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>mutationCoverage</goal>
+                        </goals>
+                        <configuration>
+                            <targetClasses>
+                                <param>com.bnppfortis.*</param>
+                            </targetClasses>
+                            <targetTests>
+                                <param>com.bnppfortis.*</param>
+                            </targetTests>
+                        </configuration>
+                    </execution>
+                </executions>
+
+            </plugin>
         </plugins>
     </build>
 
