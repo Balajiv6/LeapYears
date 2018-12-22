@@ -51,6 +51,24 @@ UserName: user
 Password: password
 ```
 
+# Maven Command to run the sonar
+
+```bash
+mvn sonar:sonar -Dsonar.projectKey=DEV2018039_sonarTest -Dsonar.organization=dev2018039-github -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=ed578856983589a00a3a448a97c36138436c1c3c
+```
+
+The Sonar results can then be viewed in the below url
+
+```bash
+https://sonarcloud.io/dashboard?id=DEV2018039_sonarTest
+```
+
+# Accessing the Front end Url
+  Use the below url to access the View
+```bash
+http://localhost:9080/bnppfortis/leapyear
+```
+
 # My solution
 - Create a Spring boot Microservice Application.
 - Add the Swagger documentation for the API created.
