@@ -1,5 +1,7 @@
+
 package com.bnppfortis.channels.controller;
 
+import com.bnppfortis.channels.constants.CommonConstants;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +26,16 @@ public class LeapYearController {
      */
     @GetMapping(path = "/validate/leap-year/{year}")
     public String validateLeapYear(@PathVariable int year) {
-        return "Year should be between 1582 to 8000";
+        String result = "Year should be between 1582 to 8000";
+        if (year > CommonConstants.LEAST_VALUE) {
+            if(year <= CommonConstants.EIGHT_THOUSAND){
+                result = year + " is not a Leap Year";
+            }else{
+                result = "Year Should be 0 to 8000";
+            }
+
+        }
+        return result;
     }
 
 
