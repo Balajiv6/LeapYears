@@ -286,4 +286,20 @@ public class LeapYearControllerTest extends TestCase {
                 .andExpect(content().string("2019 is not a Leap Year"));
     }
 
+
+    //Additional Rule Condition test case
+    /**
+     *
+     * This method is used to test ValidateLeapYear Returns a Leap Year for year 8000.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearReturnsLeapYearFor8000() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year/8000" ))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("8000 is a Leap Year"));
+    }
+
 }
