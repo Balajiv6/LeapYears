@@ -139,4 +139,62 @@ public class LeapYearControllerTest extends TestCase {
 
     }
 
+    // Test case for Second Use Case
+
+    /**
+     *
+     * This method is used to test ValidateLeapYear Returns Not a Leap Year for year 1700.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearReturnsNotALeapYearFor1700() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year/1700" ))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("1700 is not a Leap Year"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYear Returns Not a Leap Year for year 1800.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearReturnsNotALeapYearFor1800() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year/1800" ))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("1800 is not a Leap Year"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYear Returns Not a Leap Year for year 1900.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearReturnsNotALeapYearFor1900() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year/1900" ))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("1900 is not a Leap Year"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYear Returns Not a Leap Year for year 2100.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearReturnsNotALeapYearFor2100() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year/2100" ))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("2100 is not a Leap Year"));
+    }
+
 }
