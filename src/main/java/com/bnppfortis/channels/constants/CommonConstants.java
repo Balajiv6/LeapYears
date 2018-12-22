@@ -16,6 +16,7 @@ public class CommonConstants {
     public static final int LEAST_VALUE = 1582;
     public static final int EIGHT_THOUSAND = 8000;
     public static final String YEAR_SHOULD_BE_BETWEEN_1582_TO_8000 = "Year should be between 1582 to 8000";
+    public static final String LEAP_YEAR_RESOLVER = "leapyear";
 
 
 }
