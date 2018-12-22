@@ -13,6 +13,16 @@ Acceptance Criteria:
 # Goal:
  Need to determine whether the given year is leap year or not.
 
+# Maven Commands to clean the project:
+```bash
+mvn clean
+```
+
+# Maven Commands to run the test:
+```bash
+mvn test
+```
+
 # My solution
 - Create a Spring boot Microservice Application.
 - Add the Swagger documentation for the API created.
