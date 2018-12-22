@@ -7,6 +7,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,7 @@ public class LeapYearController {
     @Autowired
     LeapYearService leapYearService;
 
+    private static final Logger logger = LoggerFactory.getLogger(LeapYearController.class);
 
     /**
      * This method is used to validate Whether the given year is valid and should be prior
@@ -44,12 +47,16 @@ public class LeapYearController {
             @ApiResponse(code = 400, message = "Bad Request Params")
     })
     public String validateLeapYear(@PathVariable int year) {
+        logger.debug("Entered validateLeapYear path variable");
         String result = CommonConstants.YEAR_SHOULD_BE_BETWEEN_1582_TO_8000;
         if (year > CommonConstants.LEAST_VALUE && year <= CommonConstants.EIGHT_THOUSAND) {
             result = leapYearService.isLeapYear(year) ? year + " is a Leap Year" : year + " is not a Leap Year";
         }
+        logger.debug("Exiting validateLeapYear path variable");
+        logger.debug(result);
         return result;
     }
+
 
     /**
      * This method is used to validate Whether the given year present in json is valid and should be greater
@@ -69,6 +76,7 @@ public class LeapYearController {
             @ApiResponse(code = 400, message = "Bad Request Params")
     })
     public LeapYearResponse validateTheLeapYear(@RequestParam int year) {
+        logger.debug("Entered validateTheLeapYear Request Param");
         LeapYearResponse leapYearResponse = new LeapYearResponse();
         leapYearResponse.setYear(year);
         if (year > CommonConstants.LEAST_VALUE && year <= CommonConstants.EIGHT_THOUSAND) {
@@ -78,6 +86,7 @@ public class LeapYearController {
         } else {
             leapYearResponse.setResult(CommonConstants.YEAR_SHOULD_BE_BETWEEN_1582_TO_8000);
         }
+        logger.debug("Exiting validateTheLeapYear path variable");
         return leapYearResponse;
     }
 
