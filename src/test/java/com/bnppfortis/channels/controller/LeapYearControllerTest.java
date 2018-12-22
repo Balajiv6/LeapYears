@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -302,4 +303,71 @@ public class LeapYearControllerTest extends TestCase {
                 .andExpect(content().string("8000 is a Leap Year"));
     }
 
+    //Unit test cases for api which produces Json Result
+
+    /**
+     * This method is used to test the ValidateLeapYearJsonResponse method returns Not Found for invalid URI.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsNotFoundForInvalidURI() throws Exception {
+
+        mockMvc.perform(get("/channels/validate/year-leap"))
+                .andExpect(status().isNotFound());
+    }
+
+    /**
+     *
+     * This method is used to test  ValidateLeapYearJsonResponse Returns 400 when null year is not passed.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsBadRequestForNullYearsPassed() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=")).andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYearJsonResponse Returns Year should be between 1582 to 8000.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsForValueLessThanZero() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=-22")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("-22"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("Year should be between 1582 to 8000"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYearJsonResponse Returns Year should be between 1582 to 8000.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsForValueZero() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=0")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("0"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("Year should be between 1582 to 8000"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYearJsonResponse Returns Year should be between 1582 to 8000.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsForValueGreaterThan8000() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=8002")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("8002"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("Year should be between 1582 to 8000"));
+    }
 }
