@@ -1,7 +1,8 @@
-
 package com.bnppfortis.channels.controller;
 
 import com.bnppfortis.channels.constants.CommonConstants;
+import com.bnppfortis.channels.service.LeapYearService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class LeapYearController {
 
 
+    @Autowired
+    LeapYearService leapYearService;
+
     /**
      * This method is used to validate Whether the given year is valid and should be prior
      * to 1582 and less than 8000.
@@ -27,13 +31,8 @@ public class LeapYearController {
     @GetMapping(path = "/validate/leap-year/{year}")
     public String validateLeapYear(@PathVariable int year) {
         String result = "Year should be between 1582 to 8000";
-        if (year > CommonConstants.LEAST_VALUE) {
-            if(year <= CommonConstants.EIGHT_THOUSAND){
-                result = year + " is not a Leap Year";
-            }else{
-                result = "Year Should be 0 to 8000";
-            }
-
+        if (year > CommonConstants.LEAST_VALUE && year <= CommonConstants.EIGHT_THOUSAND) {
+            result = leapYearService.isLeapYear(year) ? year + " is a Leap Year" : year + " is not a Leap Year";
         }
         return result;
     }
