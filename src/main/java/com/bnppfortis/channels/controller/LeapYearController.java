@@ -1,6 +1,7 @@
 package com.bnppfortis.channels.controller;
 
 import com.bnppfortis.channels.constants.CommonConstants;
+import com.bnppfortis.channels.models.LeapYearResponse;
 import com.bnppfortis.channels.service.LeapYearService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -8,10 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * This is the RestController class where we will defining our Rest API.
@@ -53,5 +51,34 @@ public class LeapYearController {
         return result;
     }
 
+    /**
+     * This method is used to validate Whether the given year present in json is valid and should be greater
+     * than zero and less than 8000.
+     *
+     * @param year - LeapYearRequest
+     * @return leapYearResponse - Returns LeapYearResponse
+     */
+    @GetMapping(path = "/validate/leap-year")
+    @ApiOperation(value = "This API is used to calculate whether the given year is LeapYear or not and produces " +
+            "the output in json",
+            response = LeapYearResponse.class, produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.TEXT_PLAIN_VALUE)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Ok", response = LeapYearResponse.class),
+            @ApiResponse(code = 404, message = "Requested URI Not Found"),
+            @ApiResponse(code = 400, message = "Bad Request Params")
+    })
+    public LeapYearResponse validateTheLeapYear(@RequestParam int year) {
+        LeapYearResponse leapYearResponse = new LeapYearResponse();
+        leapYearResponse.setYear(year);
+        if (year > CommonConstants.LEAST_VALUE && year <= CommonConstants.EIGHT_THOUSAND) {
+            leapYearResponse.setResult(leapYearService.isLeapYear(year)
+                    ? year + " is a Leap Year"
+                    : year + " is not a Leap Year");
+        } else {
+            leapYearResponse.setResult(CommonConstants.YEAR_SHOULD_BE_BETWEEN_1582_TO_8000);
+        }
+        return leapYearResponse;
+    }
 
 }
