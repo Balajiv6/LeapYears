@@ -123,4 +123,20 @@ public class LeapYearControllerTest extends TestCase {
     }
 
 
+    // Test case for First Use case
+
+    /**
+     * This method is used to test ValidateLeapYear Returns Leap Year for year 2000.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearReturnsLeapYearFor2000() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year/2000" ))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string("2000 is a Leap Year"));
+
+    }
+
 }
