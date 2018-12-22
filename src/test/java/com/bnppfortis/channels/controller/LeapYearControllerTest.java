@@ -398,5 +398,47 @@ public class LeapYearControllerTest extends TestCase {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("8000"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("8000 is a Leap Year"));
     }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYearJsonResponse Returns Not Valid Leap Year.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsNotLeapYearFor1700() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=1700")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("1700"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("1700 is not a Leap Year"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYearJsonResponse Returns Not Valid Leap Year.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsNotLeapYearFor2017() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=2017")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("2017"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("2017 is not a Leap Year"));
+    }
+
+    /**
+     *
+     * This method is used to test ValidateLeapYearJsonResponse Returns Valid Leap Year.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testValidateLeapYearJsonResponseReturnsNotLeapYearFor2016() throws Exception {
+        mockMvc.perform(get("/channels/validate/leap-year?year=2016")).andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.year").value("2016"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.result").value("2016 is a Leap Year"));
+    }
     
 }
